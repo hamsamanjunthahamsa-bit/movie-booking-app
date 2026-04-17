@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const TicketModal = ({ booking, onClose }) => {
-  const { movie, date, time, theater, seats } = booking;
+  const { movie, date, time, theater, seats, totalAmount } = booking;
   const [ticketId, setTicketId] = useState('');
   
   useEffect(() => {
@@ -43,6 +43,10 @@ const TicketModal = ({ booking, onClose }) => {
               <div className="detail-box">
                 <span>Seats</span>
                 <strong>{seats.join(', ')}</strong>
+              </div>
+              <div className="detail-box">
+                <span>Total Paid</span>
+                <strong>${totalAmount}</strong>
               </div>
             </div>
 

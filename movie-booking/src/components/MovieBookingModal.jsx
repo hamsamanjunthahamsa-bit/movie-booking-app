@@ -9,6 +9,9 @@ const MovieBookingModal = ({ movie, onClose, onConfirm }) => {
   const [time, setTime] = useState(timings[0]);
   const [theater, setTheater] = useState(theaters[0]);
   const [seats, setSeats] = useState([]);
+  
+  const ticketPrice = 15; // Set price per seat
+  const totalAmount = seats.length * ticketPrice;
 
   // Generate a mock seat grid (6 rows, 8 seats)
   const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -27,7 +30,7 @@ const MovieBookingModal = ({ movie, onClose, onConfirm }) => {
       alert("Please select at least one seat.");
       return;
     }
-    onConfirm({ movie, date, time, theater, seats });
+    onConfirm({ movie, date, time, theater, seats, totalAmount });
   };
 
   return (
@@ -116,9 +119,12 @@ const MovieBookingModal = ({ movie, onClose, onConfirm }) => {
         <div className="modal-footer">
           <div className="booking-summary">
             {seats.length > 0 ? (
-              <p>({seats.length}) Seats Selected: <strong>{seats.join(', ')}</strong></p>
+              <>
+                <p>({seats.length}) Seats Selected: <strong>{seats.join(', ')}</strong></p>
+                <p style={{ marginTop: '0.3rem', fontSize: '1.1rem', color: '#fff' }}>Total Payable: <strong style={{ color: '#ff3366' }}>${totalAmount}</strong></p>
+              </>
             ) : (
-              <p>No seats selected</p>
+              <p>No seats selected ($15/seat)</p>
             )}
           </div>
           <button className="confirm-btn" onClick={handleConfirm} disabled={seats.length === 0}>
